@@ -1,59 +1,43 @@
-# OficinaStepper
+# 🚀 Angular Smart Flow Forms
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+> A 🔥 modular, scalable & standalone-component library for dynamic multi‑step form wizards in Angular 19.
 
-## Development server
+## 🎯 Overview
+Build clean, reusable form flows with:
+- **Data Service** for shared form state  
+- **Validation Service** for centralized rules  
+- **Stepper Service** for navigation control  
+- **State Management** with RxJS  
+- **HTTP Adapters** (real & mock)  
 
-To start a local development server, run:
+## ✨ Features
+- ✅ Dynamic step rendering & progress tracking  
+- ✅ Built‑in CPF, email & conditional validations  
+- ✅ UF/Município selects via API or mock data  
+- ✅ Easy to extend & themeable UI  
 
+## 🛠️ Installation
 ```bash
-ng serve
+npm install
 ```
+## 🤝 Contributing
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+We welcome contributions! Please follow these steps:
 
-## Code scaffolding
+1. **Fork the repository**  
+2. **Clone your fork**  
+   ```bash
+   git clone https://github.com/your-username/angular-smart-flow-forms.git
+   cd angular-smart-flow-forms
+   ```
+3. **Git checkout -b feat/your-feature
+4. **Make your changes
+5. **Stage and commit
+  git add .
+  git commit -m "feat: describe your feature"
+6. **Push to your branch
+  git push origin feat/your-feature
+7. **Open a Pull Request against main in the original repository
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
