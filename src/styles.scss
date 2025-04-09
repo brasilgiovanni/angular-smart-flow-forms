@@ -1,0 +1,29 @@
+form.step-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+section.section-inputs {
+    display: flex;
+    gap: 24px;
+}
+
+section.section-one-input {
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    sub {
+        width: 100%;
+    }
+}
+
+input {
+    width: 100%;
+}
+
+select {
+    width: 100%;
+}

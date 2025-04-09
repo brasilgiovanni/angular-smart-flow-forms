@@ -1,0 +1,6 @@
+<div class="stepper">
+    <div *ngFor="let stepLabel of steps; index as i"
+         [class.active]="(i + 1) === currentStep">
+      {{stepLabel}} (Step {{i + 1}})
+    </div>
+  </div>

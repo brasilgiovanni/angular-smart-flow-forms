@@ -1,0 +1,5 @@
+<div class="container-stepper">
+    <app-header [steps]="steps"></app-header>
+    <ng-container *ngIf="currentComponent" [ngComponentOutlet]="currentComponent"></ng-container>
+    <app-footer [totalSteps]="steps.length"></app-footer>
+</div>

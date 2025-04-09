@@ -1,0 +1,32 @@
+<form class="step-form" [formGroup]="contactForm">
+    <section class="section-inputs">
+        <sub>
+            <label>Email:</label>
+            <input formControlName="email" type="email">
+            <div *ngIf="contactForm.get('email')?.errors">
+                {{ contactForm.get('email')?.errors | json }}
+            </div>
+        </sub>
+
+        <sub>
+            <label>Linkedin:</label>
+            <input formControlName="linkedin" type="text">
+        </sub>
+
+        <sub>
+            <label>Github:</label>
+            <input formControlName="github" type="text">
+        </sub>
+
+    </section>
+
+    <div *ngIf="contactForm.errors?.['atLeastOneContact']">
+        Preencha ao menos um campo de contato.
+    </div>
+
+    <section class="section-one-input">
+        <label>Profissão Atual:</label>
+        <input formControlName="profissao" type="text">
+    </section>
+
+</form>
