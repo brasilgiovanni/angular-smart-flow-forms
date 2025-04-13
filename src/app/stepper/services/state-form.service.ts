@@ -18,7 +18,7 @@ export class StateFormService {
 
   // Formulário do Step 2: Dados de Contato Profissional
   contactForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, ValidationService.emailValidator]),
+    email: new FormControl('', [ValidationService.emailValidator]),
     linkedin: new FormControl(''),
     github: new FormControl(''),
     profissao: new FormControl('', Validators.required)

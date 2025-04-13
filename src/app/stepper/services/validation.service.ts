@@ -23,8 +23,11 @@ export class ValidationService {
   }
 
   static emailValidator(control: AbstractControl): ValidationErrors | null {
-    const emailRegex = /^[^\s@]+@gmail\.com$/;
-    return emailRegex.test(control.value) ? null : { invalidEmail: true };
+    if (control.value) {
+      const emailRegex = /^[^\s@]+@gmail\.com$/;
+      return emailRegex.test(control.value) ? null : { invalidEmail: true };
+    }
+    return null;
   }
 
   static contactValidator(group: FormGroup): ValidationErrors | null {

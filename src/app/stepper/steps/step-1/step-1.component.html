@@ -9,7 +9,7 @@
 
     <section class="section-one-input">
         <label>CPF:</label>
-        <input formControlName="cpf" type="text" (blur)="checkCpf()">
+        <input formControlName="cpf" type="text" (blur)="checkCpf()" mask="000.000.000-01">
         <div *ngIf="personalForm.get('cpf')?.errors">
             {{ personalForm.get('cpf')?.errors | json }}
         </div>
