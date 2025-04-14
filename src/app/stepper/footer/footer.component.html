@@ -1,6 +1,7 @@
 <div class="container-footer">
   <button (click)="onPrevious()" [disabled]="currentStep === 1">Anterior</button>
-  @if (currentStep < totalSteps) { <button (click)="onNext()">Próximo</button>
+  @if (currentStep < totalSteps) { 
+    <button [disabled]="!onCanProceed()" (click)="onNext()">Próximo</button>
     } @else {
     <button (click)="onConfirm()">Confirmar Dados</button>
     }

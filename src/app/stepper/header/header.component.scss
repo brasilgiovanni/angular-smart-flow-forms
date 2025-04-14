@@ -1,8 +1,59 @@
 .stepper {
     display: flex;
-    gap: 10px;
-}
-
-.active {
-    font-weight: bold;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 1rem;
+    justify-content: center;
+  
+    .step {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      color: #ccc;
+  
+      &.completed {
+        color: green;
+      }
+  
+      &.active {
+        font-weight: bold;
+        color: #000;
+      }
+  
+      &.future {
+        color: #aaa;
+      }
+  
+      .step-number {
+        display: inline-block;
+        width: 1.5rem;
+        text-align: center;
+        margin-right: 0.25rem;
+      }
+  
+      .step-label {
+        white-space: nowrap;
+      }
+    }
+  
+    .separator {
+      margin: 0 0.5rem;
+      color: #888;
+    }
+  }
+  
+  /* Responsividade: esconder nomes dos steps em telas pequenas */
+  @media (max-width: 600px) {
+    .stepper {
+      font-size: 0.9rem;
+  
+      .step .step-label {
+        display: none;
+      }
+  
+      .separator {
+        margin: 0 0.25rem;
+      }
+    }
 }

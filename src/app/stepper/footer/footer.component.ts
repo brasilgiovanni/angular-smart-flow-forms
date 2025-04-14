@@ -15,7 +15,6 @@ export class FooterComponent implements OnInit {
   @Input() totalSteps: number = 1;
   currentStep: number = 1;
 
-  // ✅ Usando `inject()` no lugar do construtor
   private stepperService = inject(StepperService);
   private stateService = inject(StateFormService);
   private httpService = inject(HttpProtocolService);
@@ -34,12 +33,15 @@ export class FooterComponent implements OnInit {
     this.stepperService.nextStep();
   }
 
+  onCanProceed(): boolean {
+    return this.stepperService.canProceed(this.currentStep);
+  }
+
   onRestart() {
     this.stepperService.restart();
   }
 
   onConfirm() {
-    // Consolida os dados dos formulários para envio
     const userData = {
       ...this.stateService.personalForm.value,
       ...this.stateService.contactForm.value
@@ -47,7 +49,6 @@ export class FooterComponent implements OnInit {
 
     this.httpService.registerUser(userData).subscribe(response => {
       console.log('Usuário cadastrado com sucesso!', response);
-      // Após cadastro, pode-se reiniciar ou redirecionar
       this.stepperService.restart();
     });
   }
