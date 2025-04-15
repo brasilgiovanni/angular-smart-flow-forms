@@ -12,5 +12,10 @@ export const routes: Routes =
       loadComponent: () =>
         import('./stepper/stepper.component').then(m => m.StepperComponent)
     },
+    {
+      path: 'pse-01',
+      loadComponent: () => 
+        import('./pse-01/pse-01.component').then(c => c.Pse01Component)
+    },
 
   ];

@@ -1,0 +1,14 @@
+<div class="container-footer">
+    <button (click)="previous.emit()" [disabled]="currentStep() === 1">Anterior</button>
+    @if (currentStep() < totalSteps) { 
+        <button (click)="next.emit()"
+        [disabled]="!canProceed() && currentStep() < totalSteps">
+        Próximo
+        </button>
+        } @else {
+        <button (click)="confirm.emit()">
+            Confirmar
+        </button>
+        }
+        <button (click)="restart.emit()">Reiniciar</button>
+</div>

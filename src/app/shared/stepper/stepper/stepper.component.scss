@@ -1,0 +1,11 @@
+div.container-stepper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 0.5rem 1.25rem;
+    align-items: center;
+}
+
+div.step-wrapper {
+    width: 100%;
+}

@@ -1,0 +1,22 @@
+  <div class="stepper">
+    <ng-container *ngFor="let step of steps; index as i">
+      <div
+        class="step"
+        [class.completed]="(i + 1) < currentStep()"
+        [class.active]="(i + 1) === currentStep()"
+        [class.future]="(i + 1) > currentStep()"
+      >
+        <span class="step-number">
+          <ng-container *ngIf="(i + 1) < currentStep(); else stepNum">
+            ✔
+          </ng-container>
+          <ng-template #stepNum>{{ i + 1 }}</ng-template>
+        </span>
+        <span class="step-label">{{ step.title }}</span>
+      </div>
+  
+      <ng-container *ngIf="i < steps.length - 1">
+        <span class="separator">≫</span>
+      </ng-container>
+    </ng-container>
+  </div>

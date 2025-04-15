@@ -1,0 +1,14 @@
+<div class="container-stepper">
+  <app-stepper-header [steps]="steps()" [currentStep]="currentStep"></app-stepper-header>
+  <div class="step-wrapper">
+    <ng-container *ngIf="currentComponent" [ngComponentOutlet]="currentComponent()">
+    </ng-container>
+  </div>
+
+  <app-stepper-footer [currentStep]="currentStep" [canProceed]="canProceed" [totalSteps]="totalSteps()" 
+    (next)="next()"
+    (previous)="previous()"
+    (restart)="restart()"
+    (confirm)="complete()"
+    ></app-stepper-footer>
+</div>

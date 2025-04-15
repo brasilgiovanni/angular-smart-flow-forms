@@ -1,0 +1,33 @@
+<form class="step-form" [formGroup]="personalForm">
+    <section class="section-one-input">
+        <label>Nome:</label>
+        <input formControlName="nome" type="text">
+        <div *ngIf="personalForm.get('nome')?.errors?.['invalidName']">
+            Nome inválido.
+        </div>
+    </section>
+
+    <section class="section-one-input">
+        <label>CPF:</label>
+        <input formControlName="cpf" type="text" (blur)="checkCpf()" mask="000.000.000-01">
+        <div *ngIf="personalForm.get('cpf')?.errors">
+            {{ personalForm.get('cpf')?.errors | json }}
+        </div>
+    </section>
+
+    <section class="section-inputs">
+        <label>UF:</label>
+        <select formControlName="uf" (change)="loadMunicipios()">
+            <option *ngFor="let uf of ufs" [value]="uf">{{ uf }}</option>
+        </select>
+
+        <label>Município:</label>
+        <select formControlName="municipio">
+            <option *ngFor="let municipio of municipios" [value]="municipio">{{ municipio }}</option>
+        </select>
+
+    </section>
+
+
+
+</form>

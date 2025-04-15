@@ -1,0 +1,23 @@
+<div>
+
+    <h3>Confirmação dos Dados</h3>
+    <div class="container-grid">
+        <section>
+            <h4>Dados Pessoais:</h4>
+            <p>Nome: {{ personalForm.value.nome }}</p>
+            <p>CPF: {{ personalForm.value.cpf }}</p>
+            <p>UF: {{ personalForm.value.uf }}</p>
+            <p>Município: {{ personalForm.value.municipio }}</p>
+        </section>
+    
+        <section>
+            <h4>Dados de Contato:</h4>
+            <p>Email: {{ contactForm.value.email }}</p>
+            <p>Linkedin: {{ contactForm.value.linkedin }}</p>
+            <p>Github: {{ contactForm.value.github }}</p>
+            <p>Profissão: {{ contactForm.value.profissao }}</p>
+        </section>
+    </div>
+    
+    <p>Revise os dados antes de confirmar.</p>
+</div>

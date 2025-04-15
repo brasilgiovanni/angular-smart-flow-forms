@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnDestroy, OnInit, Type } from '@angular/core';
 import { StateFormService } from './services/state-form.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { Step1Component } from './steps/step-1/step-1.component';
 import { Step2Component } from './steps/step-2/step-2.component';
 import { Step3Component } from './steps/step-3/step-3.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stepper',
@@ -14,7 +15,8 @@ import { Step3Component } from './steps/step-3/step-3.component';
   templateUrl: './stepper.component.html',
   styleUrl: './stepper.component.scss'
 })
-export class StepperComponent implements OnInit {
+export class StepperComponent implements OnInit, OnDestroy {
+  private subscription = new Subscription();
   steps: string[] = [];
   currentStep: number = 1;
   stepComponentMap: { [key: number]: Type<any> } = {
@@ -31,6 +33,13 @@ export class StepperComponent implements OnInit {
 
   ngOnInit() {
     this.steps = this.stateService.getSteps();
-    this.stateService.currentStep$.subscribe(step => this.currentStep = step);
+    this.subscription.add(
+      this.stateService.currentStep$.subscribe(step => this.currentStep = step)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.stateService.resetForms(); 
   }
 }
