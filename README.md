@@ -16,11 +16,11 @@ Build clean, reusable form flows with:
 - ✅ UF/Município selects via API or mock data  
 - ✅ Easy to extend & themeable UI  
 
-## :interrobang ABOUT
+## ⁉️ ABOUT
 
 This project presents **two different structures** for form steppers, each with its own design and technology approach:
 
-### 1. ReactiveStepper  
+### 1. ReactiveStepper 🔷 
 **Name:** ReactiveStepper  
 **Description:**  
 A **classic reactive stepper** built with `BehaviorSubject` and RxJS, organized in a modular architecture of components and services (Main, Header, Footer, StepperService, StateFormService, ValidationService).  
@@ -31,7 +31,7 @@ A **classic reactive stepper** built with `BehaviorSubject` and RxJS, organized 
   - Synchronized validation handled by a dedicated ValidationService  
   - Simple to replicate and integrate into other projects  
 
-### 2. ComposableSignalStepper  
+### 2. ComposableSignalStepper  🔶
 **Name:** ComposableSignalStepper  
 **Description:**  
 A **generic and reusable stepper library** designed for any linear step flow, based on Angular 17+’s modern **Signals API**. All state and navigation logic (e.g., "Next" button activation) is handled via `signal()` and `computed()`, with no manual subscriptions.  
