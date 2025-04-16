@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { StateFormService } from '../../services/state-form.service';
 
@@ -10,6 +10,7 @@ import { StateFormService } from '../../services/state-form.service';
   styleUrl: './step-c.component.scss'
 })
 export class StepCComponent {
+  @Output() goTo  = new EventEmitter<number>();
   personalForm : FormGroup;
   contactForm : FormGroup;
 
@@ -18,5 +19,9 @@ export class StepCComponent {
   constructor() {
     this.personalForm = this.stateService.personalForm;
     this.contactForm = this.stateService.contactForm;
+  }
+
+  onEditar(step_title: string) {
+    this.goTo.emit(1);
   }
 }

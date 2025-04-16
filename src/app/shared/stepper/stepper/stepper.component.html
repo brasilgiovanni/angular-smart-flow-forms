@@ -1,8 +1,9 @@
 <div class="container-stepper">
   <app-stepper-header [steps]="steps()" [currentStep]="currentStep"></app-stepper-header>
+
   <div class="step-wrapper">
-    <ng-container *ngIf="currentComponent" [ngComponentOutlet]="currentComponent()">
-    </ng-container>
+    <!-- Aqui carregamos o step dinâmico -->
+    <ng-template #stepContainer></ng-template>
   </div>
 
   <app-stepper-footer [currentStep]="currentStep" [canProceed]="canProceed" [totalSteps]="totalSteps()" 

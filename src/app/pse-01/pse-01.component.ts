@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ViewChild } from '@angular/core';
 import { StepperConfigModel } from '../shared/stepper/stepper-config-model';
 import { StateFormService } from './services/state-form.service';
 import { HttpProtocolService } from './services/http-protocol.service';
@@ -22,6 +22,7 @@ import { Subscription } from 'rxjs';
     ]
 })
 export class Pse01Component {
+  @ViewChild(StepperComponent) stepper!: StepperComponent;
   private subscription = new Subscription();
   steps: StepperConfigModel[] = [];
   
@@ -47,7 +48,10 @@ export class Pse01Component {
       {
         title: 'Confirmação',
         component: StepCComponent,
-        isValid: signal(true)
+        isValid: signal(true),
+        outputs: {
+          goTo: (stepIndex) => this.stepper.goTo(stepIndex)
+        }
       }
     ];
   }
