@@ -10,7 +10,7 @@ import { StateFormService } from '../../services/state-form.service';
   styleUrl: './step-c.component.scss'
 })
 export class StepCComponent {
-  @Output() goTo  = new EventEmitter<number>();
+  @Output() goToTitle  = new EventEmitter<string>();
   personalForm : FormGroup;
   contactForm : FormGroup;
 
@@ -22,6 +22,7 @@ export class StepCComponent {
   }
 
   onEditar(step_title: string) {
-    this.goTo.emit(1);
+    console.log("Chamando funcao onEditar" + step_title);
+    this.goToTitle.emit(step_title);
   }
 }

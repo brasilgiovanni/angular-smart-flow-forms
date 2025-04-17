@@ -1,15 +1,13 @@
-import { Component, computed, inject, signal, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { StepperConfigModel } from '../shared/stepper/stepper-config-model';
 import { StateFormService } from './services/state-form.service';
 import { HttpProtocolService } from './services/http-protocol.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StepAComponent } from './steps/step-a/step-a.component';
-import { StepBComponent } from './steps/step-b/step-b.component';
-import { StepCComponent } from './steps/step-c/step-c.component';
 import { StepperComponent } from '../shared/stepper/stepper/stepper.component';
 import { MockHttpProtocolService } from '../mockServices/mock-http-protocol.service';
 import { Subscription } from 'rxjs';
+import { getStep } from './services/available-steps';
 
 @Component({
   selector: 'app-pse-01',
@@ -18,14 +16,14 @@ import { Subscription } from 'rxjs';
   templateUrl: './pse-01.component.html',
   styleUrl: './pse-01.component.scss',
   providers: [
-      { provide: HttpProtocolService, useClass: MockHttpProtocolService }
-    ]
+    { provide: HttpProtocolService, useClass: MockHttpProtocolService }
+  ]
 })
-export class Pse01Component {
+export class Pse01Component implements OnDestroy {
   @ViewChild(StepperComponent) stepper!: StepperComponent;
   private subscription = new Subscription();
   steps: StepperConfigModel[] = [];
-  
+
   private stateForm = inject(StateFormService);
   private httpService = inject(HttpProtocolService)
 
@@ -33,26 +31,20 @@ export class Pse01Component {
     this.criarSteps();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.stateForm.resetForms();
+  }
+
   private criarSteps(): void {
+    const deps = {
+      stateForm: this.stateForm,
+      goToFn: (title: string) => this.stepper.goToTitle(title)
+    };
     this.steps = [
-      {
-        title: 'Dados Pessoais',
-        component: StepAComponent,
-        isValid: this.stateForm.personalValid
-      },
-      {
-        title: 'Contato Profissional',
-        component: StepBComponent,
-        isValid: this.stateForm.contactValid
-      },
-      {
-        title: 'Confirmação',
-        component: StepCComponent,
-        isValid: signal(true),
-        outputs: {
-          goTo: (stepIndex) => this.stepper.goTo(stepIndex)
-        }
-      }
+      getStep.a(deps),
+      getStep.b(deps),
+      getStep.c(deps),
     ];
   }
 
@@ -70,8 +62,8 @@ export class Pse01Component {
     this.stateForm.resetForms();
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.stateForm.resetForms(); 
+  handleStepChange(event: { previousStep: any, currentStep: any }) {
+    console.log('Trocou de step', event);
   }
+
 }

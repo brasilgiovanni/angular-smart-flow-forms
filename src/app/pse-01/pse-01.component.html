@@ -1,1 +1,1 @@
-<app-stepper [stepsConfig]="steps" (completed)="onComplete()" (restarted)="onRestart()"></app-stepper>
+<app-stepper [stepsConfig]="steps" (completed)="onComplete()" (restarted)="onRestart()" (onExchangeStep)="handleStepChange($event)"></app-stepper>
