@@ -47,7 +47,9 @@ export class StepperService {
   }
 
   goToTitle(stepTitle: string) {
-    const indexFound: number = this._steps().findIndex(component => component.title === stepTitle);
+    const indexFound = this._steps().findIndex(
+      component => component.title.trim().toLowerCase() === stepTitle.trim().toLowerCase()
+    );
     if (indexFound !== -1) {
       this._current.set(indexFound+1);
     } else {

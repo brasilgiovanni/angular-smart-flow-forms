@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import { Component, effect, inject, OnDestroy, ViewChild } from '@angular/core';
 import { StepperConfigModel } from '../shared/stepper/stepper-config-model';
 import { StateFormService } from './services/state-form.service';
 import { HttpProtocolService } from './services/http-protocol.service';
@@ -29,6 +29,11 @@ export class Pse01Component implements OnDestroy {
 
   constructor() {
     this.criarSteps();
+    // reage a atualização de Signals
+    effect(() => {
+      const option = this.stateForm.selectedOption();
+      this.changeStepFlow(option);
+    });
   }
 
   ngOnDestroy(): void {
@@ -44,6 +49,7 @@ export class Pse01Component implements OnDestroy {
     this.steps = [
       getStep.a(deps),
       getStep.b(deps),
+      getStep.d(deps),
       getStep.c(deps),
     ];
   }
@@ -64,6 +70,22 @@ export class Pse01Component implements OnDestroy {
 
   handleStepChange(event: { previousStep: any, currentStep: any }) {
     console.log('Trocou de step', event);
+  }
+
+  changeStepFlow(option: string | null) {
+    if (option == "E") {
+      const deps = {
+        stateForm: this.stateForm,
+      };
+      this.steps = [
+        getStep.a(deps),
+        getStep.b(deps),
+        getStep.d(deps),
+        getStep.e()
+      ];
+    } else {
+      this.criarSteps();
+    }
   }
 
 }
