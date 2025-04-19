@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, EventEmitter, inject, Injector, Input, OnChanges, OnDestroy, OnInit, Output, runInInjectionContext, signal, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, computed, effect, EffectRef, EventEmitter, inject, Injector, Input, OnChanges, OnDestroy, OnInit, Output, runInInjectionContext, signal, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { StepperHeaderComponent } from '../stepper-header/stepper-header.component';
 import { StepperFooterComponent } from '../stepper-footer/stepper-footer.component';
 import { StepperService } from '../stepper.service';
@@ -30,6 +30,8 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
   private injector = inject(Injector);
   // Guardamos o índice anterior como signal
   private previousStepIndex = signal(1);
+  private stepChangeEffect?: EffectRef;
+
 
   steps = this.stepperService.steps;
   currentStep = this.stepperService.currentStep;
@@ -42,7 +44,7 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
     // Inicializa o stepper
     this.stepperService.init(this.stepsConfig);
 
-    runInInjectionContext(this.injector, () => {
+    this.stepChangeEffect = runInInjectionContext(this.injector, () => 
       // Observa alterações do computed (que depende de currentStep e previousStep)
       effect(() => {
         const { current, previous } = this.stepChangeInfo();
@@ -54,8 +56,8 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
         }
 
         this.loadCurrentStep(); // carrega o novo step dinamicamente
-      });
-    });
+      })
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -66,6 +68,7 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.stepChangeEffect?.destroy();
   }
 
   next()     { this.stepperService.next(); }

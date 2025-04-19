@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StepperComponent } from '../shared/stepper/stepper/stepper.component';
 import { MockHttpProtocolService } from '../mockServices/mock-http-protocol.service';
 import { Subscription } from 'rxjs';
-import { getStep } from './services/available-steps';
+import { generateSteps } from './services/available-steps';
 
 @Component({
   selector: 'app-pse-01',
@@ -28,30 +28,24 @@ export class Pse01Component implements OnDestroy {
   private httpService = inject(HttpProtocolService)
 
   constructor() {
-    this.criarSteps();
-    // reage a atualização de Signals
+    this.steps = this.getStepsByOption(null); // estado inicial
     effect(() => {
       const option = this.stateForm.selectedOption();
-      this.changeStepFlow(option);
+      this.steps = this.getStepsByOption(option); // atualiza steps dinamicamente
     });
+  }
+
+  private getStepsByOption(option: string | null): StepperConfigModel[] {
+    return generateSteps(
+      this.stateForm,
+      (title: string) => this.stepper.goToTitle(title),
+      option
+    );
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.stateForm.resetForms();
-  }
-
-  private criarSteps(): void {
-    const deps = {
-      stateForm: this.stateForm,
-      goToFn: (title: string) => this.stepper.goToTitle(title)
-    };
-    this.steps = [
-      getStep.a(deps),
-      getStep.b(deps),
-      getStep.d(deps),
-      getStep.c(deps),
-    ];
   }
 
   onComplete() {
@@ -72,20 +66,6 @@ export class Pse01Component implements OnDestroy {
     console.log('Trocou de step', event);
   }
 
-  changeStepFlow(option: string | null) {
-    if (option == "E") {
-      const deps = {
-        stateForm: this.stateForm,
-      };
-      this.steps = [
-        getStep.a(deps),
-        getStep.b(deps),
-        getStep.d(deps),
-        getStep.e()
-      ];
-    } else {
-      this.criarSteps();
-    }
-  }
+
 
 }

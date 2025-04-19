@@ -7,7 +7,28 @@ import { StateFormService } from "./state-form.service";
 import { StepDComponent } from "../steps/step-d/step-d.component";
 import { StepEComponent } from "../steps/step-e/step-e.component";
 
-export const getStep = {
+
+ export function generateSteps(
+  stateForm: StateFormService,
+  goToFn: (title: string) => void,
+  option: string | null
+): StepperConfigModel[] {
+  const deps = { stateForm, goToFn };
+
+  const baseSteps = [
+    getStep.a(deps),
+    getStep.b(deps),
+    getStep.d(deps),
+  ];
+
+  if (option === 'E') {
+    return [...baseSteps, getStep.e()];
+  }
+
+  return [...baseSteps, getStep.c(deps)];
+}
+
+const getStep = {
   a: (deps: { stateForm: StateFormService }) => createStepA(deps.stateForm),
   b: (deps: { stateForm: StateFormService }) => createStepB(deps.stateForm),
   c: (deps: { goToFn: (title: string) => void }) => createStepC(deps.goToFn),
@@ -15,7 +36,7 @@ export const getStep = {
   e: () => createStepE(),
 };
 
-export function createStepA(stateForm: StateFormService): StepperConfigModel {
+ function createStepA(stateForm: StateFormService): StepperConfigModel {
   return {
     title: 'Dados Pessoais',
     component: StepAComponent,
@@ -23,7 +44,7 @@ export function createStepA(stateForm: StateFormService): StepperConfigModel {
   };
 }
 
-export function createStepB(stateForm: StateFormService): StepperConfigModel {
+ function createStepB(stateForm: StateFormService): StepperConfigModel {
   return {
     title: 'Contato Profissional',
     component: StepBComponent,
@@ -31,7 +52,7 @@ export function createStepB(stateForm: StateFormService): StepperConfigModel {
   };
 }
 
-export function createStepC(goToFn: (stepTitle: string) => void): StepperConfigModel {
+ function createStepC(goToFn: (stepTitle: string) => void): StepperConfigModel {
   return {
     title: 'Confirmação',
     component: StepCComponent,
@@ -42,7 +63,7 @@ export function createStepC(goToFn: (stepTitle: string) => void): StepperConfigM
   };
 }
 
-export function createStepD(stateForm: StateFormService): StepperConfigModel {
+ function createStepD(stateForm: StateFormService): StepperConfigModel {
   return {
     title: 'Opção',
     component: StepDComponent,
@@ -50,7 +71,7 @@ export function createStepD(stateForm: StateFormService): StepperConfigModel {
   };
 }
 
-export function createStepE(): StepperConfigModel {
+ function createStepE(): StepperConfigModel {
   return {
     title: 'Step E',
     component: StepEComponent,
