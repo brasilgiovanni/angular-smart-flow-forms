@@ -1,5 +1,5 @@
 import { signal } from "@angular/core";
-import { StepperConfigModel } from "../../shared/stepper/stepper-config-model";
+import { StepperConfigModel } from "../../shared/composable-signal-stepper/stepper-config-model";
 import { StepAComponent } from "../steps/step-a/step-a.component";
 import { StepBComponent } from "../steps/step-b/step-b.component";
 import { StepCComponent } from "../steps/step-c/step-c.component";

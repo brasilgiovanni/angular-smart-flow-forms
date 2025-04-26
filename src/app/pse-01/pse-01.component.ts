@@ -1,10 +1,10 @@
 import { Component, effect, inject, OnDestroy, ViewChild } from '@angular/core';
-import { StepperConfigModel } from '../shared/stepper/stepper-config-model';
+import { StepperConfigModel } from '../shared/composable-signal-stepper/stepper-config-model';
 import { StateFormService } from './services/state-form.service';
 import { HttpProtocolService } from './services/http-protocol.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StepperComponent } from '../shared/stepper/stepper/stepper.component';
+import { StepperComponent } from '../shared/composable-signal-stepper/stepper/stepper.component';
 import { MockHttpProtocolService } from '../mockServices/mock-http-protocol.service';
 import { Subscription } from 'rxjs';
 import { generateSteps } from './services/available-steps';

@@ -1,6 +1,6 @@
 import { Injectable, signal } from "@angular/core";
 import { FormGroup, FormControl, Validators, AbstractControlOptions, FormBuilder } from "@angular/forms";
-import { ValidationService } from "../../stepper/services/validation.service";
+import { ValidationFormsService } from "../../shared/services/validation-forms.service"; 
 import { Subscription } from "rxjs";
 
 @Injectable({
@@ -57,20 +57,20 @@ export class StateFormService {
     // Formulário do Step 1: Dados Pessoais
     private construirFormulários(): void {
         this.personalForm = this.fb.group({
-            nome: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-            cpf: new FormControl('', [Validators.required, ValidationService.cpfValidator]),
+            nome: new FormControl('', [Validators.required, ValidationFormsService.nameValidator]),
+            cpf: new FormControl('', [Validators.required, ValidationFormsService.cpfValidator]),
             uf: new FormControl('', Validators.required),
             municipio: new FormControl('', Validators.required)
         });
 
         // Formulário do Step 2: Dados de Contato Profissional
         this.contactForm = this.fb.group({
-            email: new FormControl('', [ValidationService.emailValidator]),
+            email: new FormControl('', [ValidationFormsService.emailValidator]),
             linkedin: new FormControl(''),
             github: new FormControl(''),
             profissao: new FormControl('', Validators.required)
         }, <AbstractControlOptions>{
-            validators: [ValidationService.contactValidator]
+            validators: [ValidationFormsService.contactValidator]
         });
 
         // Formulário do Componente D (step 3): Escolha se vai para o componente C ou E

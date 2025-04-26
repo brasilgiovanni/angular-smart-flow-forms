@@ -1,1 +1,94 @@
-<p>home works</p>
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+  <div class="container">
+    <h1>🚀 Angular Smart Flow Forms</h1>
+    <blockquote>🔥 A modular, scalable & standalone-component library for dynamic multi‑step form wizards in Angular 19.</blockquote>
+
+    <section>
+      <h2>🎯 Overview</h2>
+      <ul>
+        <li><strong>Data Service</strong> for shared form state</li>
+        <li><strong>Validation Service</strong> for centralized rules</li>
+        <li><strong>Stepper Service</strong> for navigation control</li>
+        <li><strong>State Management</strong> with RxJS</li>
+        <li><strong>HTTP Adapters</strong> (real & mock)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>✨ Features</h2>
+      <ul>
+        <li>✅ Dynamic step rendering & progress tracking</li>
+        <li>✅ Built‑in CPF, email & conditional validations</li>
+        <li>✅ UF/Município selects via API or mock data</li>
+        <li>✅ Easy to extend & themeable UI</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>⁉️ About</h2>
+      <p>This project presents <strong>two different structures</strong> for form steppers, each with its own design and technology approach:</p>
+
+      <h3>1. ReactiveStepper 🔷</h3>
+      <ul>
+        <li><strong>Name:</strong> ReactiveStepper</li>
+        <li><strong>Description:</strong> A <strong>classic reactive stepper</strong> built with <code>BehaviorSubject</code> and RxJS.</li>
+        <li><strong>Compatibility:</strong> Angular 15+</li>
+        <li><strong>Key Features:</strong>
+          <ul>
+            <li>Step navigation controlled via RxJS streams</li>
+            <li>Centralized FormGroups managed by a state service</li>
+            <li>Synchronized validation handled by a dedicated ValidationService</li>
+            <li>Simple to replicate and integrate into other projects</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>2. ComposableSignalStepper 🔶</h3>
+      <ul>
+        <li><strong>Name:</strong> ComposableSignalStepper</li>
+        <li><strong>Description:</strong> A <strong>generic and reusable stepper library</strong> based on Angular’s Signals API.</li>
+        <li><strong>Compatibility:</strong> Angular 17+</li>
+        <li><strong>Key Features:</strong>
+          <ul>
+            <li>Native reactive state management using Signals (no RxJS)</li>
+            <li>Validation handled through <code>Signal&lt;boolean&gt;</code> in each StepDefinition</li>
+            <li>Predefined Header and Footer components</li>
+            <li>Shared architecture for multiple workflows</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Both steppers provide a <strong>solid foundation</strong> for scalable, maintainable, and testable form wizards — choose the one that best fits your project needs!</p>
+    </section>
+
+    <section>
+      <h2>🛠️ Installation</h2>
+      <pre><code>npm install</code></pre>
+    </section>
+
+    <section>
+      <h2>🤝 Contributing</h2>
+      <ol>
+        <li><strong>Fork the repository</strong></li>
+        <li><strong>Clone your fork</strong><pre><code>git clone https://github.com/your-username/angular-smart-flow-forms.git
+cd angular-smart-flow-forms</code></pre></li>
+        <li><strong>Checkout your feature branch</strong><pre><code>git checkout -b feat/your-feature</code></pre></li>
+        <li><strong>Make your changes</strong></li>
+        <li><strong>Stage and commit</strong><pre><code>git add .
+git commit -m "feat: describe your feature"</code></pre></li>
+        <li><strong>Push to your branch</strong><pre><code>git push origin feat/your-feature</code></pre></li>
+        <li><strong>Open a Pull Request</strong> against <strong>main</strong> branch</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>📄 License</h2>
+      <p>This project is licensed under the <a href="#">MIT License</a>.</p>
+    </section>
+  </div>
+
+</body>
+</html>

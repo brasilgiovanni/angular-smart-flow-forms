@@ -10,7 +10,7 @@ export const routes: Routes =
     {
       path: 'stepper',
       loadComponent: () =>
-        import('./stepper/stepper.component').then(m => m.StepperComponent)
+        import('./reactive-stepper/stepper.component').then(m => m.StepperComponent)
     },
     {
       path: 'pse-01',
