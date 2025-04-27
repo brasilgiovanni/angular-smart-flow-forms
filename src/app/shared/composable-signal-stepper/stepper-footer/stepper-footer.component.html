@@ -1,14 +1,14 @@
 <div class="container-footer">
-    <button (click)="previous.emit()" [disabled]="currentStep() === 1">Anterior</button>
+    <button id="previous-btn" (click)="previous.emit()" [disabled]="currentStep() === 1">Anterior</button>
     @if (currentStep() < totalSteps) { 
-        <button (click)="next.emit()"
+        <button id="next-btn" (click)="next.emit()"
         [disabled]="!canProceed() && currentStep() < totalSteps">
         Próximo
         </button>
         } @else {
-        <button (click)="confirm.emit()">
+        <button id="confirm-btn" (click)="confirm.emit()">
             Confirmar
         </button>
         }
-        <button (click)="restart.emit()">Reiniciar</button>
+        <button id="restart-btn" (click)="restart.emit()">Reiniciar</button>
 </div>
