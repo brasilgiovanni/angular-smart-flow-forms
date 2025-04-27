@@ -15,7 +15,7 @@ import { StepExchangeModel } from '../step-exchange-model';
   styleUrl: './stepper.component.scss'
 })
 export class StepperComponent implements OnInit,OnChanges, OnDestroy{
-  @Input() stepsConfig: StepperConfigModel[] = [];
+  @Input({ required: true }) stepsConfig: StepperConfigModel[] = [];
   @Output() completed = new EventEmitter<any>();
   @Output() restarted = new EventEmitter<void>();
   @Output() onExchangeStep = new EventEmitter<StepExchangeModel>();
@@ -28,10 +28,7 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
   private subscriptions = new Subscription();
   private stepperService = inject(StepperService);
   private injector = inject(Injector);
-  // Guardamos o índice anterior como signal
-  private previousStepIndex = signal(1);
   private stepChangeEffect?: EffectRef;
-
 
   steps = this.stepperService.steps;
   currentStep = this.stepperService.currentStep;
@@ -44,18 +41,16 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
     // Inicializa o stepper
     this.stepperService.init(this.stepsConfig);
 
-    this.stepChangeEffect = runInInjectionContext(this.injector, () => 
-      // Observa alterações do computed (que depende de currentStep e previousStep)
+    this.stepChangeEffect = runInInjectionContext(this.injector, () =>
       effect(() => {
-        const { current, previous } = this.stepChangeInfo();
-
-        // Só emite se o índice atual mudou
-        if (current !== previous) {
+        const current = this.stepperService.currentStep();
+        const previous = this.stepperService.previousStep();
+    
+        if (current !== previous && previous !== null) {
           this.emitExchangeEvent(previous, current);
-          this.previousStepIndex.set(current);
         }
-
-        this.loadCurrentStep(); // carrega o novo step dinamicamente
+    
+        this.loadCurrentStep();
       })
     );
   }
@@ -80,20 +75,12 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
   complete() { this.completed.emit(); }
 
   goTo(index: number) {
-    this.stepperService.goTo(index); // interno do StepperService
+    this.stepperService.goTo(index); 
   }
 
   goToTitle(title: string) {
     this.stepperService.goToTitle(title);
   }
-
-  // Computed que deriva os dados necessários
-  private stepChangeInfo = computed(() => {
-    const current = this.currentStep();
-    const previous = this.previousStepIndex();
-
-    return { current, previous };
-  });
   
   private emitExchangeEvent(prevIndex: number, currentIndex: number) {
     const previousStep = this.stepsConfig[prevIndex - 1];
@@ -114,28 +101,37 @@ export class StepperComponent implements OnInit,OnChanges, OnDestroy{
   }
 
   private loadCurrentStep() {
-    // Limpa subscrições anteriores e o container
+    this.clearCurrentStep();
+    this.createStepComponent();
+  }
+  
+  private clearCurrentStep() {
     this.subscriptions.unsubscribe();
     this.subscriptions = new Subscription();
     this.stepContainer.clear();
-
+  }
+  
+  private createStepComponent() {
     const idx = this.stepperService.currentStep();
     const def = this.stepsConfig[idx - 1];
     if (!def) return;
-
-    // Cria o componente dinamicamente
+  
     const ref = this.stepContainer.createComponent(def.component);
-
-    // Se o step definiu outputs, conecta-os automaticamente
+  
     if (def.outputs) {
       for (const [outputName, handler] of Object.entries(def.outputs)) {
         const emitter = (ref.instance as any)[outputName];
-        if (emitter && typeof emitter.subscribe === 'function') {
+        if (this.isEventEmitter(emitter)) {
           const s = emitter.subscribe((payload: any) => handler(payload));
           this.subscriptions.add(s);
         }
       }
     }
+  }
+  
+  // Pequeno helper para validar se é um EventEmitter
+  private isEventEmitter(obj: any): obj is EventEmitter<any> {
+    return obj && typeof obj.subscribe === 'function';
   }
   
 }

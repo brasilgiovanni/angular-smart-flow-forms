@@ -1,6 +1,6 @@
 import { Injectable, signal } from "@angular/core";
 import { FormGroup, FormControl, Validators, AbstractControlOptions, FormBuilder } from "@angular/forms";
-import { ValidationFormsService } from "../../shared/services/validation-forms.service"; 
+import { ValidationFormsService } from "../../shared/services/validation-forms.service";
 import { Subscription } from "rxjs";
 
 @Injectable({
@@ -95,6 +95,6 @@ export class StateFormService {
 
     setSelectedOption(value: string) {
         this._selectedOption.set(value);
-      }
+    }
 
 }

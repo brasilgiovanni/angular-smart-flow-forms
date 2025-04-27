@@ -22,7 +22,6 @@ export class StepCComponent {
   }
 
   onEditar(step_title: string) {
-    console.log("Chamando funcao onEditar" + step_title);
     this.goToTitle.emit(step_title);
   }
 }
